@@ -1,12 +1,11 @@
-import React, { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { AuthContext } from '../../context/AuthProvider';
 import { getInitialRoute } from '../../utils/getInitialRoute';
 import { useDispatch } from 'react-redux';
 import { getUserDetails } from '../../redux/action/LoginAction';
 import { AppDispatch } from '../../redux/store/store';
 import { ROUTERS } from '../../utils/common/routes';
+import useAuth from '../../hooks/useAuth';
 
 interface FormValues {
     email: string;
@@ -14,7 +13,7 @@ interface FormValues {
 }
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>()
     const {

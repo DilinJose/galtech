@@ -48,11 +48,10 @@ export const getUserDetails = createAsyncThunk<UserTypes, LoginPayload>(
 
 export const postUserDetails = createAsyncThunk(
     "POST_USER_DETAILS",
-    async (payload, { rejectWithValue }) => {
+    async (payload:any, { rejectWithValue }) => {
         try {
             const response = await postData("/users", payload);
-
-
+            return response.data
         } catch (err: any) {
             alert("Login failed")
             return rejectWithValue(err?.response?.data || "Login failed");
@@ -66,7 +65,7 @@ export const updateUserDetails = createAsyncThunk(
     async (payload: Partial<UserTypes>, { rejectWithValue }) => {
         const { id, ...rest } = payload
         try {
-            const response = await putData(`/users/${payload.id}`, rest);
+            const response = await putData(`/users/${id}`, rest);
             return response.data;
         } catch (err: any) {
             alert("Update failed")
@@ -80,7 +79,7 @@ export const deleteUserDetails = createAsyncThunk(
     async (id: string, { rejectWithValue }) => {
         try {
             await deleteData(`/users/${id}`);
-            return id; 
+            return id;
         } catch (err: any) {
             alert("Delete failed")
             return rejectWithValue(err?.response?.data || "Delete failed");

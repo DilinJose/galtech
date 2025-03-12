@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "../../redux/action/LoginAction";
@@ -25,7 +24,7 @@ const ChangePassword = () => {
 
     const onSubmit = (data: any) => {
     
-        dispatch(updatePassword({ id: user?.id, currentPassword: data.currentPassword, newPassword: data.newPassword }))
+        dispatch(updatePassword({ id: user?.id??"", currentPassword: data.currentPassword, newPassword: data.newPassword }))
     .unwrap()
     .then(() => {
       alert("Password updated successfully!");
