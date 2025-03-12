@@ -5,7 +5,7 @@ import { UserTypes } from '../../../redux/slice/userSlice';
 import { ColumnDef } from '@tanstack/react-table';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/store/store';
-import { getAllUsers } from '../../../redux/action/LoginAction';
+import { deleteUserDetails, getAllUsers } from '../../../redux/action/LoginAction';
 import { ROUTERS } from '../../../utils/common/routes';
 import { replace, useNavigate } from 'react-router';
 
@@ -54,12 +54,11 @@ const Users = () => {
   );
 
   const handleEdit = (user: UserTypes) => {
-    console.log('user', user)
-    navigate(`/edituser/${user.id}`, { state: user }); // Navigate to edit page
+    navigate(`/edituser/${user.id}`, { state: user }); 
   };
 
   const handleDelete = (id: string) => {
-    dispatch(deleteUserDetails(id)); // Dispatch delete action
+    dispatch(deleteUserDetails(id)); 
   };
 
   return (

@@ -8,6 +8,6 @@ export const getInitialRoute = (role: string): string => {
             return ROUTERS.dashboard;
 
         default:
-            return ROUTERS.logIn; // Fallback in case of an unknown role
+            return ROUTERS.logIn; 
     }
 };

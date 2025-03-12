@@ -4,13 +4,12 @@ import useAuth from "../hooks/useAuth";
 
 type ProtectedRoutesProps = {
     allowedRoles: string[];
-    redirectTo?: string; // Add a redirect path for the initial component
+    redirectTo?: string;
 };
 
 const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ allowedRoles, redirectTo }) => {
     const { auth } = useAuth();
     const location = useLocation();
-
     if (!auth || !auth.user) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
@@ -19,7 +18,6 @@ const ProtectedRoutes: React.FC<ProtectedRoutesProps> = ({ allowedRoles, redirec
         return <Navigate to="/unauthorized" state={{ from: location }} replace />;
     }
 
-    // If redirectTo is provided, navigate to the correct dashboard
     if (redirectTo && location.pathname === "/") {
         return <Navigate to={redirectTo} replace />;
     }

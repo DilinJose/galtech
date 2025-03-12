@@ -13,6 +13,10 @@ import Signup from '../pages/signUp/SignUp'
 import Logout from '../pages/logout/Logout'
 import AdminProfileManagment from '../pages/admin/adminProfileManagment/AdminProfileManagment'
 import UserEdit from '../pages/admin/users/UserEdit'
+import ChangePassword from '../pages/changePassword/ChangePassword'
+import ProfileManagement from '../pages/admin/users/ProfileManagement'
+import UserChangePassword from '../pages/admin/users/UserChangePassword'
+import LogoutUser from '../pages/admin/users/LogoutUser'
 
 const AppRouter = () => {
   const { auth } = useAuth()
@@ -35,14 +39,16 @@ const AppRouter = () => {
           <Route path={ROUTERS.adminProfile} element={<AdminProfileManagment />} />
           <Route path={ROUTERS.users} element={<Users />} />
           <Route path={ROUTERS.editUser} element={<UserEdit />} />
-
+          <Route path={ROUTERS.changePswd} element={<ChangePassword />} />
           <Route path={ROUTERS.logOut} element={<Logout />} />
 
         </Route>
 
         <Route element={<ProtectedRoutes allowedRoles={["user"]} redirectTo={ROUTERS.dashboard} />}>
           <Route path={ROUTERS.dashboard} element={<Dashboard />} />
-          <Route path={ROUTERS.logOut} element={<Logout />} />
+          <Route path={ROUTERS.profileManagement} element={<ProfileManagement />} />
+          <Route path={ROUTERS.changePassword} element={<UserChangePassword />} />
+          <Route path={ROUTERS.logOutUser} element={<LogoutUser />} />
         </Route>
 
 
