@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { RootState, AppDispatch } from "../../../redux/store/store";
-import Body from "../../../components/layout/body/Body";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store/store";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
 import { updateUserDetails } from "../../../redux/action/LoginAction";
+import Body from "../../../components/layout/body/Body";
 
 interface FormValues {
     username: string;
@@ -17,7 +17,7 @@ interface FormValues {
     role: "admin" | "user" | "";
 }
 
-const AdminProfileManagement = () => {
+const ProfileManagement = () => {
     const dispatch = useDispatch<AppDispatch>();
     const userDetails = useSelector((state: RootState) => state.user.user);
 
@@ -27,10 +27,9 @@ const AdminProfileManagement = () => {
         setValue,
         formState: { errors },
     } = useForm<FormValues>({
-        defaultValues: userDetails, 
+        defaultValues: userDetails,
     });
 
-   
     const [imagePreview, setImagePreview] = useState(userDetails?.profileImage || "");
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +38,7 @@ const AdminProfileManagement = () => {
             const reader = new FileReader();
             reader.onloadend = () => {
                 const base64String = reader.result as string;
-                setValue("profileImage", base64String); 
+                setValue("profileImage", base64String);  
                 setImagePreview(base64String);
             };
             reader.readAsDataURL(file);
@@ -55,7 +54,6 @@ const AdminProfileManagement = () => {
             <div className="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-semibold text-center mb-6">Edit Profile</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    {/* Username */}
                     <input
                         type="text"
                         placeholder="Username"
@@ -64,7 +62,6 @@ const AdminProfileManagement = () => {
                     />
                     {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
 
-                    {/* Email */}
                     <input
                         type="email"
                         placeholder="Email"
@@ -73,7 +70,6 @@ const AdminProfileManagement = () => {
                         disabled
                     />
 
-                    {/* Mobile */}
                     <input
                         type="text"
                         placeholder="Mobile"
@@ -82,7 +78,6 @@ const AdminProfileManagement = () => {
                     />
                     {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile.message}</p>}
 
-                    {/* Gender */}
                     <select
                         {...register("gender", { required: "Gender is required" })}
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -93,7 +88,6 @@ const AdminProfileManagement = () => {
                     </select>
                     {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message}</p>}
 
-                    {/* Date of Birth */}
                     <input
                         type="date"
                         {...register("dob", { required: "Date of birth is required" })}
@@ -101,7 +95,6 @@ const AdminProfileManagement = () => {
                     />
                     {errors.dob && <p className="text-red-500 text-sm">{errors.dob.message}</p>}
 
-                    {/* Address (Textarea) */}
                     <textarea
                         placeholder="Address"
                         {...register("address", { required: "Address is required" })}
@@ -109,7 +102,6 @@ const AdminProfileManagement = () => {
                     />
                     {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
 
-                    {/* Profile Image Upload */}
                     <div className="flex flex-col items-center">
                         {imagePreview && <img src={imagePreview} alt="Profile" className="w-24 h-24 rounded-full mb-2" />}
                         <input
@@ -120,7 +112,7 @@ const AdminProfileManagement = () => {
                         />
                     </div>
 
-                    {/* Password */}
+                    <label>Password</label>
                     <input
                         type="password"
                         placeholder="New Password (Optional)"
@@ -128,7 +120,6 @@ const AdminProfileManagement = () => {
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
 
-                    {/* Submit Button */}
                     <button
                         type="submit"
                         className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
@@ -141,4 +132,4 @@ const AdminProfileManagement = () => {
     );
 };
 
-export default AdminProfileManagement;
+export default ProfileManagement;

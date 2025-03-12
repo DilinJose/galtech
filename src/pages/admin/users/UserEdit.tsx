@@ -23,7 +23,6 @@ const UserEdit = () => {
     });
 
 
-    // Convert file to Base64
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -38,7 +37,6 @@ const UserEdit = () => {
     };
 
     const onSubmit = (data: any) => {
-        console.log("Updated Data", data);
         dispatch(updateUserDetails(data));
         navigate(ROUTERS.users);
     };

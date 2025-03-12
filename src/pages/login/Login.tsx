@@ -25,7 +25,6 @@ const Login = () => {
 
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         const response: any = await dispatch(getUserDetails(data))
-        console.log('response', response.payload)
         const userDetails = {
             username: response?.payload?.username ?? "",
             email: response?.payload?.email ?? "",
