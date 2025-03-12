@@ -65,8 +65,7 @@ export const updateUserDetails = createAsyncThunk(
     async (payload: Partial<UserTypes>, { rejectWithValue }) => {
         const { id, ...rest } = payload
         try {
-            const response = await putData(`/users/${id}`, rest);
-            // return response.data;
+           await putData(`/users/${id}`, rest);
         } catch (err: any) {
             alert("Update failed")
             return rejectWithValue(err?.response?.data || "Update failed");
