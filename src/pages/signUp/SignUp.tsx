@@ -14,7 +14,7 @@ interface SignupFormValues {
     gender: "Male" | "Female" | "";
     dob: string;
     address: string;
-    profileImage: string; 
+    profileImage: string;
     password: string;
     confirmPassword: string;
     role: "admin" | "user" | "";
@@ -34,21 +34,31 @@ const Signup = () => {
     } = useForm<SignupFormValues>();
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault()
         const file = event.target.files?.[0];
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setProfileImageBase64(reader.result as string);
-                setValue("profileImage", reader.result as string); 
+                setValue("profileImage", reader.result as string);
             };
             reader.readAsDataURL(file);
         }
     };
 
-    const onSubmit: SubmitHandler<SignupFormValues> = (data) => {
-        dispatch(postUserDetails(data))
+    const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+        try {
+            const response: any = await dispatch(postUserDetails(data));
 
-        navigate(ROUTERS.logIn); 
+            if (response.meta.requestStatus === "fulfilled") {
+                alert("User Created Successfully!");
+                navigate(ROUTERS.logIn); 
+            } else {
+                alert("User creation failed! Please try again.");
+            }
+        } catch (error) {
+            console.error("Signup Error:", error);
+        }
     };
 
     return (

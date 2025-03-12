@@ -27,7 +27,17 @@ const ProfileManagement = () => {
         setValue,
         formState: { errors },
     } = useForm<FormValues>({
-        defaultValues: userDetails,
+        defaultValues: {
+            username: userDetails?.username ?? "",
+            email: userDetails?.email ?? "",
+            mobile: userDetails?.mobile ?? "",
+            gender: userDetails?.gender as "Male" | "Female" | "" ?? "",
+            dob: userDetails?.dob ?? "",
+            address: userDetails?.address ?? "",
+            profileImage: userDetails?.profileImage ?? "",
+            password: "",
+            role: userDetails?.role ?? "",
+        },
     });
 
     const [imagePreview, setImagePreview] = useState(userDetails?.profileImage || "");

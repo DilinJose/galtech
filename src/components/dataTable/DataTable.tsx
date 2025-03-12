@@ -2,9 +2,7 @@ import React from 'react'
 
 
 import {
-  Column,
   PaginationState,
-  Table,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,

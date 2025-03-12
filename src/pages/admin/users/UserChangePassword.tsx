@@ -24,7 +24,7 @@ const UserChangePassword = () => {
 
     const onSubmit = (data: any) => {
     
-        dispatch(updatePassword({ id: user?.id, currentPassword: data.currentPassword, newPassword: data.newPassword }))
+        dispatch(updatePassword({ id: user?.id??"", currentPassword: data.currentPassword, newPassword: data.newPassword }))
     .unwrap()
     .then(() => {
       alert("Password updated successfully!");
