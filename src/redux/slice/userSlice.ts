@@ -51,9 +51,9 @@ export const UserSlice = createSlice({
             state.isLoading = true;
             state.error = null;
         });
-        builder.addCase(updateUserDetails.fulfilled, (state, action) => {
+        builder.addCase(updateUserDetails.fulfilled, (state) => {
             state.isLoading = false;
-            state.user = action.payload as UserTypes;
+            // state.user = action.payload as UserTypes;
         });
         builder.addCase(updateUserDetails.rejected, (state, action) => {
             state.isLoading = false;

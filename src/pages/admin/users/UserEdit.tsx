@@ -36,11 +36,22 @@ const UserEdit = () => {
         }
     };
 
-    const onSubmit = (data: any) => {
-        dispatch(updateUserDetails(data));
-        navigate(ROUTERS.users);
+    const onSubmit = async (data: any) => {
+        try {
+            const response = await dispatch(updateUserDetails(data)); // Wait for the update action
+    
+            if (response.meta.requestStatus === "fulfilled") {
+                alert("User Updated Successfully!");
+                navigate(ROUTERS.users);
+            } else {
+                alert("User updation failed! Please try again.");
+            }
+        } catch (error) {
+            console.error("Error updating user:", error);
+            alert("An unexpected error occurred.");
+        }
     };
-
+    
     return (
         <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-md">
             <h2 className="text-lg font-semibold mb-4">Edit User</h2>

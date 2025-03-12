@@ -14,8 +14,10 @@ const Users = () => {
   const users = useSelector((state: RootState) => state.user.userList);
 
   useEffect(() => {
-    dispatch(getAllUsers())
-  }, [])
+    if (users.length === 0) {
+        dispatch(getAllUsers());
+    }
+}, [dispatch])
 
 
   const columns = React.useMemo<ColumnDef<UserTypes>[]>(
@@ -56,9 +58,18 @@ const Users = () => {
     navigate(`/edituser/${user.id}`, { state: user });
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteUserDetails(id));
-  };
+  const handleDelete = async (id: string) => {
+    try {
+        const response = await dispatch(deleteUserDetails(id));
+        if (response.meta.requestStatus === "fulfilled") {
+            alert("User deleted successfully!");
+        } else {
+            alert("Failed to delete user.");
+        }
+    } catch (error) {
+        console.error("Error deleting user:", error);
+    }
+};
 
   return (
     <Body>
