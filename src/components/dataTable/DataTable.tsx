@@ -2,9 +2,7 @@ import React from 'react'
 
 
 import {
-  Column,
   PaginationState,
-  Table,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -36,11 +34,9 @@ function DataTable({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
-    //no need to pass pageCount or rowCount with client-side pagination as it is calculated automatically
     state: {
       pagination,
     },
-    // autoResetPageIndex: false, // turn off page index reset when sorting or filtering
   })
 
   return (

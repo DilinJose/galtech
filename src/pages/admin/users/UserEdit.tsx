@@ -23,7 +23,6 @@ const UserEdit = () => {
     });
 
 
-    // Convert file to Base64
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -37,12 +36,22 @@ const UserEdit = () => {
         }
     };
 
-    const onSubmit = (data: any) => {
-        console.log("Updated Data", data);
-        dispatch(updateUserDetails(data));
-        navigate(ROUTERS.users);
+    const onSubmit = async (data: any) => {
+        try {
+            const response = await dispatch(updateUserDetails(data)); // Wait for the update action
+    
+            if (response.meta.requestStatus === "fulfilled") {
+                alert("User Updated Successfully!");
+                navigate(ROUTERS.users);
+            } else {
+                alert("User updation failed! Please try again.");
+            }
+        } catch (error) {
+            console.error("Error updating user:", error);
+            alert("An unexpected error occurred.");
+        }
     };
-
+    
     return (
         <div className="p-6 max-w-md mx-auto bg-white shadow-md rounded-md">
             <h2 className="text-lg font-semibold mb-4">Edit User</h2>
@@ -52,42 +61,42 @@ const UserEdit = () => {
                     placeholder="Username"
                     className="border p-2 w-full"
                 />
-                {errors.username && <p className="text-red-500 text-sm">{errors.username.message}</p>}
+                {errors.username && <p className="text-red-500 text-sm">{errors?.username?.message?.toString()}</p>}
 
                 <input
                     {...register("email", { required: "Email is required" })}
                     placeholder="Email"
                     className="border p-2 w-full"
                 />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+                {errors.email && <p className="text-red-500 text-sm">{errors.email.message?.toString()}</p>}
 
                 <input
                     {...register("mobile", { required: "Mobile number is required" })}
                     placeholder="Mobile"
                     className="border p-2 w-full"
                 />
-                {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile.message}</p>}
+                {errors.mobile && <p className="text-red-500 text-sm">{errors.mobile.message?.toString()}</p>}
 
                 <select {...register("gender", { required: "Gender is required" })} className="border p-2 w-full">
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
-                {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message}</p>}
+                {errors.gender && <p className="text-red-500 text-sm">{errors.gender.message?.toString()}</p>}
 
                 <input
                     {...register("dob", { required: "Date of Birth is required" })}
                     type="date"
                     className="border p-2 w-full"
                 />
-                {errors.dob && <p className="text-red-500 text-sm">{errors.dob.message}</p>}
+                {errors.dob && <p className="text-red-500 text-sm">{errors.dob.message?.toString()}</p>}
 
                 <textarea
                     {...register("address", { required: "Address is required" })}
                     placeholder="Address"
                     className="border p-2 w-full"
                 />
-                {errors.address && <p className="text-red-500 text-sm">{errors.address.message}</p>}
+                {errors.address && <p className="text-red-500 text-sm">{errors.address.message?.toString()}</p>}
 
                 {/* Profile Image Upload */}
                 <input type="file" accept="image/*" onChange={handleImageUpload} className="border p-2 w-full" />
@@ -100,7 +109,7 @@ const UserEdit = () => {
                     placeholder="Password"
                     className="border p-2 w-full"
                 />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+                {errors.password && <p className="text-red-500 text-sm">{errors.password.message?.toString()}</p>}
                 <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
                     Update
                 </button>

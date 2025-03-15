@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../hooks/useAuth'
 
-const Logout = () => {
+const LogoutUser = () => {
     const navigate = useNavigate()
     const { setAuth } = useAuth()
     useEffect(() => {
@@ -16,4 +16,4 @@ const Logout = () => {
     return null
 }
 
-export default Logout
+export default LogoutUser

@@ -1,14 +1,19 @@
 export const ROUTERS = {
-    // dashboard: "/",
     logIn: "/login",
     signUp: "/signup",
     logOut: "/logout",
     adminProfile: "/adminprofilemanagment",
+    profileManagement: "/profilemanagment",
+
     unAuthorized: "/unauthorized",
     adminDashboard: "/admindashboard",
     dashboard: "/dashboard",
     users: "/users",
-    editUser: "/edituser/:id"
+    editUser: "/edituser/:id",
+    changePswd:"/changepswd",
+    changePassword:"/changepassword",
+    logOutUser: "/logoutuser"
+
 
 
 }
