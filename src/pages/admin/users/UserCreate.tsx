@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { AppDispatch } from "../../redux/store/store";
-import { postAdminDetails } from "../../redux/action/LoginAction";
-import { ROUTERS } from "../../utils/common/routes";
+import { AppDispatch } from "../../../redux/store/store";
+import { postUserDetails } from "../../../redux/action/LoginAction";
+import { ROUTERS } from "../../../utils/common/routes";
+import useAuth from "../../../hooks/useAuth";
 
 interface SignupFormValues {
     id: string;
+    adminId?: string;
     username: string;
     email: string;
     mobile: string;
@@ -20,7 +22,8 @@ interface SignupFormValues {
     role: "admin" | "user" | "";
 }
 
-const Signup = () => {
+const UserCreate = () => {
+    const { auth } = useAuth()
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>()
     const [profileImageBase64, setProfileImageBase64] = useState<string>("");
@@ -31,7 +34,7 @@ const Signup = () => {
         watch,
         formState: { errors },
         setValue,
-    } = useForm<SignupFormValues>({ defaultValues: { role: "admin" } });
+    } = useForm<SignupFormValues>({ defaultValues: { role: "user" } });
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
@@ -48,13 +51,13 @@ const Signup = () => {
 
     const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
         try {
-            const response: any = await dispatch(postAdminDetails(data));
+            const response: any = await dispatch(postUserDetails({ ...data, adminId: auth?.user.id ?? "" }));
 
             if (response.meta.requestStatus === "fulfilled") {
-                alert("Admin Created Successfully!");
-                navigate(ROUTERS.logIn);
+                alert("User Created Successfully!");
+                navigate(ROUTERS.adminDashboard);
             } else {
-                alert("Admin creation failed! Please try again.");
+                alert("User creation failed! Please try again.");
             }
         } catch (error) {
             console.error("Signup Error:", error);
@@ -64,7 +67,7 @@ const Signup = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-                <h2 className="text-2xl font-semibold text-center mb-6">Create an admin account</h2>
+                <h2 className="text-2xl font-semibold text-center mb-6">Signup</h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <input
                         type="text"
@@ -162,8 +165,8 @@ const Signup = () => {
                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="">Select Role</option>
-                        <option value="admin">Admin</option>
-                        {/* <option value="user">User</option> */}
+                        {/* <option value="admin">Admin</option> */}
+                        <option value="user">User</option>
                     </select>
                     {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
 
@@ -174,7 +177,7 @@ const Signup = () => {
                         Signup
                     </button>
 
-                    <p className="text-center mt-4 text-sm text-gray-600">
+                    {/* <p className="text-center mt-4 text-sm text-gray-600">
                         Already have an account?
                         <button
                             onClick={() => navigate('/login')}
@@ -182,11 +185,11 @@ const Signup = () => {
                         >
                             Login
                         </button>
-                    </p>
+                    </p> */}
                 </form>
             </div>
         </div>
     );
 };
 
-export default Signup;
+export default UserCreate;

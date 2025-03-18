@@ -8,9 +8,10 @@ import { AppDispatch } from '../../redux/store/store';
 import { ROUTERS } from '../../utils/common/routes';
 import useAuth from '../../hooks/useAuth';
 
-interface FormValues {
+export interface FormValues {
     email: string;
     password: string;
+    role: string
 }
 
 const Login = () => {
@@ -30,6 +31,7 @@ const Login = () => {
         try {
             const response: any = await dispatch(getUserDetails(data));
             const userDetails = {
+                id: response?.payload?.id ?? "",
                 username: response?.payload?.username ?? "",
                 email: response?.payload?.email ?? "",
                 mobile: response?.payload?.mobile ?? "",
@@ -73,12 +75,23 @@ const Login = () => {
                         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>}
                     </div>
 
+                    <div>
+                        <select
+                            {...register("role", { required: "Role is required" })}
+                            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="">Select Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="users">User</option>
+                        </select>
+                        {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
+                    </div>
+
                     <button
                         type="submit"
                         disabled={loading}
-                        className={`w-full text-white py-2 rounded-lg transition duration-300 ${
-                            loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-                        }`}
+                        className={`w-full text-white py-2 rounded-lg transition duration-300 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
+                            }`}
                     >
                         {loading ? (
                             <div className="flex items-center justify-center">

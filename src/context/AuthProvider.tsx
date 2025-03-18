@@ -1,7 +1,8 @@
 
 import React, { createContext, useState, ReactNode } from 'react';
 
-interface UserType{
+export interface UserType{
+    id:string;
     username: string,
     email: string,
     mobile: string,

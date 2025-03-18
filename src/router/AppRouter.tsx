@@ -16,6 +16,7 @@ import ChangePassword from '../pages/changePassword/ChangePassword'
 import ProfileManagement from '../pages/admin/users/ProfileManagement'
 import UserChangePassword from '../pages/admin/users/UserChangePassword'
 import LogoutUser from '../pages/admin/users/LogoutUser'
+import UserCreate from '../pages/admin/users/UserCreate'
 
 const AppRouter = () => {
   const { auth } = useAuth()
@@ -40,6 +41,7 @@ const AppRouter = () => {
           <Route path={ROUTERS.editUser} element={<UserEdit />} />
           <Route path={ROUTERS.changePswd} element={<ChangePassword />} />
           <Route path={ROUTERS.logOut} element={<Logout />} />
+          <Route path={ROUTERS.UserCreate} element={<UserCreate/>}/>
 
         </Route>
 

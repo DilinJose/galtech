@@ -3,6 +3,7 @@ import { deleteUserDetails, getAllUsers, getUserDetails, updateUserDetails } fro
 
 export interface UserTypes {
     id: string;
+    adminId: string;
     username: string;
     email: string;
     mobile: string;
@@ -74,7 +75,7 @@ export const UserSlice = createSlice({
         });
         builder.addCase(deleteUserDetails.fulfilled, (state, action: PayloadAction<string>) => {
             state.userList = state.userList.filter(user => user.id !== action.payload);
-          });
+        });
     },
 });
 

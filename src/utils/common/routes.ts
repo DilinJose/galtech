@@ -10,10 +10,10 @@ export const ROUTERS = {
     dashboard: "/dashboard",
     users: "/users",
     editUser: "/edituser/:id",
-    changePswd:"/changepswd",
-    changePassword:"/changepassword",
-    logOutUser: "/logoutuser"
+    changePswd: "/changepswd",
+    changePassword: "/changepassword",
+    logOutUser: "/logoutuser",
 
-
+    UserCreate: "/usercreate"
 
 }
